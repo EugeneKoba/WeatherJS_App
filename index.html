@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <!-- Weather Icon Pack -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Inporting Open Sans Font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>WeatherJS</title>
+</head>
+<body>
+
+    <div class="main" style="background-color: #33bbf1"><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
+        <section class="input">
+            <header>
+                <h2 class="title-el" style="color: #33bbf1">WeatherJS App</h2><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
+            </header>
+            <div class="input-bottom">
+                <p class="info-el">Enter a City name below...</p>
+                <input type="text" placeholder="Enter City Name...">
+                <div class="line-seperator"></div>
+                <button class="input-btn" style="background-color: #33bbf1">Use Current Location</button><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
+            </div>
+            <div class="weather">
+                <img src="icons/storm.svg" alt="weather-icon" class="weather-icon">
+                <div class="temp">
+                    <span class="temp-number">20</span><span class="degrees">°C</span>
+                </div>
+                <div class="cloud-type">
+                    Cloudy
+                </div>
+                <div class="location">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>London, UK</span>
+                </div>
+                <div class="secondary-details">
+                    <div class="feels-like">
+                        <i class="bi bi-thermometer-half"></i>
+                        <div>
+                            <span>Feels Like:</span>
+                            <span class="feels-like-el">19</span><span class="degrees">°C</span>
+                        </div>
+                    </div>
+                    <div class="wind-dir">
+                        <i class="bi bi-wind"></i>
+                        <div>
+                            <p class="wind-dir-el">10.3<span class="mph">mph</span></p>
+                            <span>Wind Dir:</span>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <i class="bi bi-clock"></i>
+                        <div>
+                            <span>Time:</span>
+                            <p class="time-el">18<span>:00</span></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feels-like (= current temp + 1), Wind-direction, Current-Time (the Hour Only) -->
+            </div>
+        </section>
+
+    </div>
+
+
+        <!--    JAVASCRIPT SECTION   -->
+        <script src="script.js"></script>
+</body>
+</html>
