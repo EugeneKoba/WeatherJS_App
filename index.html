@@ -21,47 +21,46 @@
                 <h2 class="title-el" style="color: #33bbf1">WeatherJS App</h2><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
             </header>
             <div class="input-bottom">
-                <p class="info-el">Enter a City name below...</p>
-                <input type="text" placeholder="Enter City Name...">
+                <p>Enter a City name & press 'Enter'...</p>
+                <input type="text" class="city-el" placeholder="Enter City Name...">
                 <div class="line-seperator"></div>
-                <button class="input-btn" style="background-color: #33bbf1">Use Current Location</button><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
+                <button class="location-btn" style="background-color: #33bbf1">Use Current Location</button><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
             </div>
             <div class="weather">
                 <img src="icons/storm.svg" alt="weather-icon" class="weather-icon">
                 <div class="temp">
-                    <span class="temp-number">20</span><span class="degrees">°C</span>
+                    <span class="temp-numb">20</span><span class="degrees">°C</span>
                 </div>
                 <div class="cloud-type">
                     Cloudy
                 </div>
-                <div class="location">
+                <div>
                     <i class="bi bi-geo-alt"></i>
-                    <span>London, UK</span>
+                    <span class="location-el">London, UK</span>
                 </div>
                 <div class="secondary-details">
                     <div class="feels-like">
-                        <i class="bi bi-thermometer-half" style="color: #33bbf1"></i><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
+                        <i class="bi bi-thermometer-half feels-like-icon" style="color: #33bbf1"></i><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT -->
                         <div>
                             <p>Feels Like:</p>
                             <span class="feels-like-el">19</span><span class="degrees">°C</span>
                         </div>
                     </div>
                     <div class="wind-dir">
-                        <i class="bi bi-wind" style="color: #33bbf1"></i><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT --></i>
+                        <i class="bi bi-wind wind-dir-icon" style="color: #33bbf1"></i><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT --></i>
                         <div>
                             <p>Wind Dir:</p>
                             <span class="wind-dir-el">10.3<span class="mph">mph</span></span>
                         </div>
                     </div>
                     <div class="time">
-                        <i class="bi bi-clock" style="color: #33bbf1"></i><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT --></i>
+                        <i class="bi bi-clock time-icon" style="color: #33bbf1"></i><!-- SET FUNCTION TO CHANGE COPLOUR BASED ON DAY/NIGHT --></i>
                         <div>
                             <p>Time:</p>
                             <span class="time-el">18<span>:00</span></span>
                         </div>
                     </div>
                 </div>
-                <!-- Feels-like (= current temp + 1), Wind-direction, Current-Time (the Hour Only) -->
             </div>
         </section>
 
