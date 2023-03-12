@@ -3,7 +3,6 @@
 mainEl = document.querySelector(".main")
 titleEl = document.querySelector(".title-el")
 inputEl = document.querySelector(".input-el")
-locationBtn = document.querySelector(".location-btn")
 weatherBox = document.querySelector(".weather-box")
 forecastIcon = document.querySelector(".forecast-icon")
 tempNumb = document.querySelector(".temp-numb")
@@ -70,11 +69,8 @@ class WeatherData {
         feelsLikeEl.innerHTML = `${feelsLike}`
         windDirEl.innerHTML = `${windDir} mph`
         timeEl.innerHTML = `${time()}:00`
-        console.log(time())
-        
     }
 }
-
 
 
 // Event Listener for when the Enter key is pressed
@@ -82,53 +78,43 @@ inputEl.addEventListener("keypress", async function(event, target) {
     // Calling instance of ES6 Class
     let weatherData = new WeatherData()
     if (event.keyCode == 13) {
-            // Initialise empty array
-            let response = []
-            // take in the City that was inputted by the user
-            let cityInput = inputEl.value
-            
-            try {
-                response = await WeatherData.getData(cityInput)
-                // Throw error if input name is invalid, or input is empty
-                console.log(response)
-                if (response.cod == "404" || cityInput == "") {
-                    WeatherData.errorFunction()
-                    return;
-                }
+        // Initialise empty array
+        let response = []
+        // take in the City that was inputted by the user
+        let cityInput = inputEl.value
+        
+        try {
+            response = await WeatherData.getData(cityInput)
+            // Throw error if input name is invalid, or input is empty
+            if (response.cod == "404" || cityInput == "") {
+                WeatherData.errorFunction()
+                return;
             }
-            catch (error) {
-                console.log("Error!")
-                console.log(error)
-                WeatherData.errorFunction(error)
-            }
+        }
+        catch (error) {
+            console.log("Error!")
+            console.log(error)
+            WeatherData.errorFunction(error)
+        }
+        {
             {
-                {
-                    // Make Weather Section Visible
-                    weatherBox.style.display = "block"
-                    // Store Open Weather Map API Data
-                    let numb = WeatherData.kelvToCelc(response.main.temp)
-                    let forecast = WeatherData.getForecast(response.weather[0].main)
-                    let forecastDesc = response.weather[0].main
-                    let feelsLike = WeatherData.kelvToCelc(response.main.feels_like)
-                    let city = response.name
-                    let area = String(response.sys.country)
-                    let windDir = response.wind.speed
-                    let time = function() {
-                        const currentDate = new Date()
-                        return currentDate.getHours();
-                    }
-                    
-                    WeatherData.printData(forecast, numb, forecastDesc, city, area, feelsLike, windDir, time)
-                    console.log(`
-                    Temperature: ${numb},
-                    Clouds: ${forecast}, 
-                    City: ${city}, 
-                    ${area} 
-                    Feels Like: ${feelsLike}, 
-                    Wind Dir: ${windDir}mph, 
-                    Time: ${time()}:00`)
+                // Make Weather Section Visible
+                weatherBox.style.display = "block"
+                // Store Open Weather Map API Data
+                let numb = WeatherData.kelvToCelc(response.main.temp)
+                let forecast = WeatherData.getForecast(response.weather[0].main)
+                let forecastDesc = response.weather[0].main
+                let feelsLike = WeatherData.kelvToCelc(response.main.feels_like)
+                let city = response.name
+                let area = String(response.sys.country)
+                let windDir = response.wind.speed
+                let time = function() {
+                    const currentDate = new Date()
+                    return currentDate.getHours();
                 }
+                WeatherData.printData(forecast, numb, forecastDesc, city, area, feelsLike, windDir, time)
             }
+        }
     }
 })
 
