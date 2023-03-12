@@ -2,12 +2,14 @@
 
 mainEl = document.querySelector(".main")
 titleEl = document.querySelector(".title-el")
-cityEl = document.querySelector(".city-el")
+inputEl = document.querySelector(".input-el")
 locationBtn = document.querySelector(".location-btn")
-weatherIcon = document.querySelector(".weather-icon")
+weatherBox = document.querySelector(".weather-box")
+forecastIcon = document.querySelector(".forecast-icon")
 tempNumb = document.querySelector(".temp-numb")
-cloudTypeImg = document.querySelector(".cloud-type")
-locationEl = document.querySelector(".location-el")
+forecastEl = document.querySelector(".forecast-el")
+cityEl = document.querySelector(".city-el")
+areaEl = document.querySelector(".area-el")
 feelsLikeIcon = document.querySelector(".feels-like-icon")
 feelsLikeEl = document.querySelector(".feels-like-el")
 windDirIcon = document.querySelector(".wind-dir-icon")
@@ -27,19 +29,23 @@ class WeatherData {
         response = await response.json()
         return response
     }    
+    // Function to return an error, if COuntry Name is invalid
+    static errorFunction(error) {
+        return alert("Error: Invalid City Name. Please enter a valid City Name.")
+    }
 
     // Function to convert Kelvin to Celcius.  The Open Wearher Map gives temperature in Kelvin, this needs to be converted
     static kelvToCelc(temp) {
         return Math.round(temp - 273.15);
     }
 
-    // Function to link Cloud Type to Images
+    // Function to link Forecast to .svg images
     static getForecast (main) {
         if (main == "Clear") {
             return "clear.svg"
         }
         else if (main == "Clouds") {
-            return "clouds.svg"
+            return "cloud.svg"
         }
         else if (main == "Rain" || main == "Drizzle") {
             return "rain.svg"
@@ -54,51 +60,68 @@ class WeatherData {
             return "haze.svg"
         }
     }
+
+    static printData(forecast, numb, forecastDesc, city, area, feelsLike, windDir, time) {
+        forecastIcon.innerHTML = `<img src="icons/${forecast}" alt="forecast-icon" class="forecast-icon">`
+        tempNumb.innerHTML = `${numb}`
+        forecastEl.innerHTML = `${forecastDesc}`
+        cityEl.innerHTML = `${city}`
+        areaEl.innerHTML = `, ${area}`
+        feelsLikeEl.innerHTML = `${feelsLike}`
+        windDirEl.innerHTML = `${windDir} mph`
+        timeEl.innerHTML = `${time()}:00`
+        console.log(time())
+        
+    }
 }
 
 
 
 // Event Listener for when the Enter key is pressed
-cityEl.addEventListener("keypress", async function(event, target) {
+inputEl.addEventListener("keypress", async function(event, target) {
     // Calling instance of ES6 Class
     let weatherData = new WeatherData()
     if (event.keyCode == 13) {
-        console.log("Enter Key was pressed!")
             // Initialise empty array
             let response = []
             // take in the City that was inputted by the user
-            let cityInput = cityEl.value
+            let cityInput = inputEl.value
             
             try {
                 response = await WeatherData.getData(cityInput)
+                // Throw error if input name is invalid, or input is empty
+                console.log(response)
+                if (response.cod == "404" || cityInput == "") {
+                    WeatherData.errorFunction()
+                    return;
+                }
             }
             catch (error) {
                 console.log("Error!")
                 console.log(error)
+                WeatherData.errorFunction(error)
             }
             {
                 {
+                    // Make Weather Section Visible
+                    weatherBox.style.display = "block"
                     // Store Open Weather Map API Data
                     let numb = WeatherData.kelvToCelc(response.main.temp)
-                    let cloudType = WeatherData.getForecast(response.weather[0].main)
+                    let forecast = WeatherData.getForecast(response.weather[0].main)
+                    let forecastDesc = response.weather[0].main
                     let feelsLike = WeatherData.kelvToCelc(response.main.feels_like)
                     let city = response.name
                     let area = String(response.sys.country)
-                    console.log(area)
                     let windDir = response.wind.speed
-                    let curTime = function() {
+                    let time = function() {
                         const currentDate = new Date()
-                        let hour = currentDate.getHours()
-                        return hour;
+                        return currentDate.getHours();
                     }
-                    time = function() {
-                        let timeZone = response.timezone
-                        // Open Weather Map gives the difference in Timezone, in seconds, so this needs to be divided by 3600
-                        return curTime() + (timeZone/3600)
-                    }
+                    
+                    WeatherData.printData(forecast, numb, forecastDesc, city, area, feelsLike, windDir, time)
                     console.log(`
                     Temperature: ${numb},
-                    Clouds: ${cloudType}, 
+                    Clouds: ${forecast}, 
                     City: ${city}, 
                     ${area} 
                     Feels Like: ${feelsLike}, 
